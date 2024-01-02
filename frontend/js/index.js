@@ -25,6 +25,15 @@ const fetchAccounts = () => {
       const accountSelectTag = $("#account");
       // add option tags to the select tag.
       accountSelectTag.append(optionTags());
+
+      // grab the 'from' select tag from the DOM.
+      const fromSelectTag = $("#from");
+      fromSelectTag.append(optionTags());
+
+      // grab the 'to' select tag from the DOM.
+      const toSelectTag = $("#to");
+      toSelectTag.append(optionTags());
+
     })
   }).catch(e => {
       console.error(e)
