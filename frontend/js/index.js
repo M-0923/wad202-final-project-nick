@@ -1,6 +1,7 @@
 $(() => {
   //Start coding here!
   fetchAccounts();
+  fetchCategories();
 });
 
 /**
@@ -39,6 +40,21 @@ const fetchAccounts = () => {
       console.error(e)
     }
   )
+}
+
+/**
+ * call the /categories endpoint to get all categories.
+ * Then, display them in the categories list.
+ */
+const fetchCategories = () => {
+    fetch("http://localhost:3000/categories", {
+        method: "GET"
+    }).then(res => {
+        res.json().then(data => {
+            const categoryList = $("#category");
+            categoryList.append(data.map(category => generateOptionTag(category.id, category.name)));
+        })
+    }).catch(err => console.log(err))
 }
 
 /**
