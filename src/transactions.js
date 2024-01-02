@@ -1,5 +1,5 @@
-import { getAccounts, validateAccount } from "./accounts.js";
-import { validateCategory } from "./categories.js";
+import { getAccounts, validateAccount } from './accounts.js';
+import { validateCategory } from './categories.js';
 
 let transactionCounter = 0;
 export const addTransaction = (transaction) => {
@@ -12,15 +12,8 @@ export const addTransaction = (transaction) => {
       account.id === transaction.accountId
     ) {
       transactionCounter++;
-      const {
-        accountId,
-        accountIdFrom,
-        accountIdTo,
-        type,
-        amount,
-        categoryId,
-        description,
-      } = transaction;
+      const { accountId, accountIdFrom, accountIdTo, type, amount, categoryId, description } =
+        transaction;
       let newTransaction = {
         accountId,
         accountIdFrom,
@@ -54,35 +47,31 @@ export const getAllTransactions = () => {
 };
 
 export const validateTransaction = (transaction) => {
-  if (!transaction) return "Invalid data";
+  if (!transaction) return 'Invalid data';
   if (!transaction.type) {
-    return "Invalid transaction type";
+    return 'Invalid transaction type';
   }
   if (
-    transaction.type === "Transfer" &&
+    transaction.type === 'Transfer' &&
     (!transaction.accountIdFrom ||
       !transaction.accountIdTo ||
       !validateAccount(transaction.accountIdFrom) ||
       !validateAccount(transaction.accountIdTo))
   ) {
-    return "Invalid account id.";
+    return 'Invalid account id.';
   }
   if (
-    (transaction.type === "Deposit" || transaction.type === "Withdraw") &&
+    (transaction.type === 'Deposit' || transaction.type === 'Withdraw') &&
     (!transaction.accountId || !validateAccount(transaction.accountId))
   ) {
-    return "Invalid account id.";
+    return 'Invalid account id.';
   }
-  if (
-    !transaction.amount ||
-    transaction.amount <= 0 ||
-    !Number(transaction.amount)
-  )
-    return "Invalid transaction amount";
+  if (!transaction.amount || transaction.amount <= 0 || !Number(transaction.amount))
+    return 'Invalid transaction amount';
   if (!transaction.categoryId || !validateCategory(transaction.categoryId)) {
-    return "Invalid category";
+    return 'Invalid category';
   }
-  return "validated";
+  return 'validated';
 };
 
 export default { addTransaction, getAllTransactions, validateTransaction };

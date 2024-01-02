@@ -1,4 +1,4 @@
-let categories = [{ id: 1, name: "salary" }];
+let categories = [{ id: 1, name: 'salary' }];
 
 export const getCategories = () => {
   return categories;

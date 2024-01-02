@@ -30,8 +30,7 @@ Thank you for your interest in contributing to Nick Project! This document outli
 - Hotfix: `hotfix/<issue_number>-<brief_description>` (main ⇔ hotfix)
 - Documentation Update: `docs/<issue_number>-<brief_description>` (develop ⇔ docs)
 
-*Note: `<issue_number>-` can be omitted if the modification is not based on an issue.*
-
+_Note: `<issue_number>-` can be omitted if the modification is not based on an issue._
 
 #### Examples
 
