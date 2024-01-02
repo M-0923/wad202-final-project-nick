@@ -6,8 +6,17 @@ const store = new Store();
 
 $(() => {
   //Start coding here!
+
+  // fetch accounts and categories initial data from the server.
   fetchAccounts();
   fetchCategories();
+
+  // create a new account.
+  $('#create-new-account').on('submit', function (e) {
+    e.preventDefault();
+    const username = $('input').val();
+    createNewAccount(username);
+  });
 });
 
 /**
@@ -25,6 +34,34 @@ const fetchAccounts = () => {
           (account) => new Account(account.id, account.username, account.transaction),
         );
         store.setAccounts(accounts);
+      });
+    })
+    .catch((e) => {
+      console.error(e);
+    });
+};
+
+/**
+ * create a new account.
+ * If creating is successful, the data will be rendered in the select tag of the Account section.
+ * @param {string} username
+ */
+const createNewAccount = (username) => {
+  if (!(username.length > 0)) {
+    alert('Username cannot be empty!');
+    return;
+  }
+
+  fetch('http://localhost:3000/accounts', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ newAccount: username }),
+  })
+    .then((res) => {
+      res.json().then((data) => {
+        store.addAccount(new Account(data.id, data.username, data.transaction));
       });
     })
     .catch((e) => {
