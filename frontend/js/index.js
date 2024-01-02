@@ -9,37 +9,40 @@ $(() => {
  */
 const fetchAccounts = () => {
   fetch("http://localhost:3000/accounts", {
-    method: "GET"
-  }).then(res => {
-    res.json().then(data => {
-      // generate option tags
-      const optionTags = () => data.map(account => generateOptionTag(account.id, account.username));
+    method: "GET",
+  })
+    .then((res) => {
+      res.json().then((data) => {
+        // generate option tags
+        const optionTags = () =>
+          data.map((account) =>
+            generateOptionTag(account.id, account.username),
+          );
 
-      // grab the account select tag from the DOM.
-      const accountFilterSelectTag = $("#account-filter");
-      // generate default option tag.
-      const accountNotSelected = generateOptionTag(0, "ALL");
-      accountFilterSelectTag.append([accountNotSelected, ...optionTags()]);
+        // grab the account select tag from the DOM.
+        const accountFilterSelectTag = $("#account-filter");
+        // generate default option tag.
+        const accountNotSelected = generateOptionTag(0, "ALL");
+        accountFilterSelectTag.append([accountNotSelected, ...optionTags()]);
 
-      // grab the account select tag from the DOM.
-      const accountSelectTag = $("#account");
-      // add option tags to the select tag.
-      accountSelectTag.append(optionTags());
+        // grab the account select tag from the DOM.
+        const accountSelectTag = $("#account");
+        // add option tags to the select tag.
+        accountSelectTag.append(optionTags());
 
-      // grab the 'from' select tag from the DOM.
-      const fromSelectTag = $("#from");
-      fromSelectTag.append(optionTags());
+        // grab the 'from' select tag from the DOM.
+        const fromSelectTag = $("#from");
+        fromSelectTag.append(optionTags());
 
-      // grab the 'to' select tag from the DOM.
-      const toSelectTag = $("#to");
-      toSelectTag.append(optionTags());
-
+        // grab the 'to' select tag from the DOM.
+        const toSelectTag = $("#to");
+        toSelectTag.append(optionTags());
+      });
     })
-  }).catch(e => {
-      console.error(e)
-    }
-  )
-}
+    .catch((e) => {
+      console.error(e);
+    });
+};
 
 /**
  * generate option tags for the select tag.
@@ -49,7 +52,7 @@ const fetchAccounts = () => {
  */
 const generateOptionTag = (id, name) => {
   const optionTag = document.createElement("option");
-        optionTag.value = id.toString();
-        optionTag.innerText = name;
+  optionTag.value = id.toString();
+  optionTag.innerText = name;
   return optionTag;
-}
+};

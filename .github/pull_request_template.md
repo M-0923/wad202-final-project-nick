@@ -30,7 +30,7 @@ Example:
 <!-- List the points you would like to be reviewed in detail and the points you are not confident about. -->
 <!-- Delete this section if not needed -->
 
-- 
+-
 
 ## Note
 
@@ -52,5 +52,6 @@ Example:
 ## Reviewer Checklist:
 
 <!-- You can tick the checkboxes if not applicable -->
+
 - [ ] The code follows the generic best practices
 - [ ] Code is well-commented and easy to understand
