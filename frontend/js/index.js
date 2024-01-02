@@ -18,7 +18,7 @@ const fetchAccounts = () => {
       // grab the account select tag from the DOM.
       const accountFilterSelectTag = $("#account-filter");
       // generate default option tag.
-      const accountNotSelected = "<option value='0'>ALL</option>"
+      const accountNotSelected = generateOptionTag(0, "ALL");
       accountFilterSelectTag.append([accountNotSelected, ...optionTags()]);
 
       // grab the account select tag from the DOM.
