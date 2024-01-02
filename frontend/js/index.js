@@ -54,7 +54,7 @@ const fetchCategories = () => {
             const categoryList = $("#category");
             categoryList.append(data.map(category => generateOptionTag(category.id, category.name)));
         })
-    }).catch(err => console.log(err))
+    }).catch(err => console.error(err))
 }
 
 /**
