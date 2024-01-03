@@ -1,7 +1,16 @@
 export class Account {
-  #id = -1;
-  #username = '';
-  #transactions = [];
+  /**
+   * @type {number}
+   */
+  #id;
+  /**
+   * @type {string}
+   */
+  #username;
+  /**
+   * @type {number[]}
+   */
+  #transactions;
 
   /**
    * constructor
