@@ -14,8 +14,10 @@ $(() => {
   // create a new account.
   $('#create-new-account').on('submit', function (e) {
     e.preventDefault();
-    const username = $('input').val();
+    const usernameInput = $(this).find('input');
+    const username = usernameInput.val();
     createNewAccount(username);
+    usernameInput.val('');
   });
 });
 
