@@ -36,7 +36,17 @@ export class Renderer {
     toSelectTag.append(optionTags);
   };
 
-  categoryRenderer = (categories) => {};
+  /**
+   * render to the ID, #catgegory
+   * @param {Category[]} categories
+   */
+  categoryRenderer = (categories) => {
+    const categoryList = $('#category');
+    categoryList.empty();
+    categoryList.append(
+      categories.map((category) => generateOptionTag(category.id, category.name)),
+    );
+  };
 }
 
 /**

@@ -1,5 +1,6 @@
 import { Account } from './helpers/Account';
 import { Renderer } from './renders.js';
+import { Category } from './helpers/Category.js';
 
 /**
  * This class hosts all data.
@@ -18,11 +19,17 @@ export class Store {
   #renderer;
 
   /**
+   * @type {Category[]}
+   */
+  #categories;
+
+  /**
    * @param {Renderer} renderer
    */
   constructor(renderer) {
     this.#accounts = [];
     this.#renderer = renderer;
+    this.#categories = [];
   }
 
   /**
@@ -43,5 +50,23 @@ export class Store {
   addAccount(account) {
     this.#accounts.push(account);
     this.#renderer.accountRenderer(this.#accounts);
+  }
+
+  /**
+   * Set category data.
+   * @param {Category[]} categories
+   */
+  setCategories(categories) {
+    this.#categories = categories;
+    this.#renderer.categoryRenderer(this.#categories);
+  }
+
+  /**
+   * Add a category data
+   * @param {Category} category
+   */
+  addCategory(category) {
+    this.#categories.push(category);
+    this.#renderer.categoryRenderer(this.#categories);
   }
 }
