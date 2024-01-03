@@ -1,8 +1,12 @@
-import { Store, generateOptionTag } from './store.js';
-import { Account } from './helpers/Account.js';
+import { Store } from './store.js';
+import { Renderer } from './renders.js';
+import { fetchAccounts, createNewAccount } from './apis/account.js';
+import { fetchCategories, createNewCategory } from './apis/category.js';
 
 // this is the store instance.
-const store = new Store();
+// This store is singleton.
+const renderer = new Renderer();
+export const store = new Store(renderer);
 
 $(() => {
   //Start coding here!
@@ -19,71 +23,11 @@ $(() => {
     createNewAccount(username);
     usernameInput.val('');
   });
+
+  $('#create-new-category').on('submit', function (e) {
+    e.preventDefault();
+    const categoryInput = $(this).find('input');
+    createNewCategory(categoryInput.val());
+    categoryInput.val('');
+  });
 });
-
-/**
- * get accounts from the server.
- * If the request is successful, the data will be rendered in the select tag of the Account section.
- */
-const fetchAccounts = () => {
-  fetch('http://localhost:3000/accounts', {
-    method: 'GET',
-  })
-    .then((res) => {
-      res.json().then((data) => {
-        // update the store with the fetched accounts data.
-        const accounts = data.map(
-          (account) => new Account(account.id, account.username, account.transaction),
-        );
-        store.setAccounts(accounts);
-      });
-    })
-    .catch((e) => {
-      console.error(e);
-    });
-};
-
-/**
- * create a new account.
- * If creating is successful, the data will be rendered in the select tag of the Account section.
- * @param {string} username
- */
-const createNewAccount = (username) => {
-  if (!(username.length > 0)) {
-    alert('Username cannot be empty!');
-    return;
-  }
-
-  fetch('http://localhost:3000/accounts', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ newAccount: username }),
-  })
-    .then((res) => {
-      res.json().then((data) => {
-        store.addAccount(new Account(data.id, data.username, data.transaction));
-      });
-    })
-    .catch((e) => {
-      console.error(e);
-    });
-};
-
-/**
- * call the /categories endpoint to get all categories.
- * Then, display them in the categories list.
- */
-const fetchCategories = () => {
-  fetch('http://localhost:3000/categories', {
-    method: 'GET',
-  })
-    .then((res) => {
-      res.json().then((data) => {
-        const categoryList = $('#category');
-        categoryList.append(data.map((category) => generateOptionTag(category.id, category.name)));
-      });
-    })
-    .catch((err) => console.error(err));
-};
