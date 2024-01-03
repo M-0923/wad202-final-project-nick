@@ -23,11 +23,8 @@ jobs:
       - name: install dependencies
         run: npm ci
 
-      - name: install JSDoc
-        run: npm install jsdoc
-
       - name: run
-        run: jsdoc -r frontend/js
+        run: npx jsdoc -r frontend/js
 
       - name: deploy
         uses: peaceiris/actions-gh-pages@v3
