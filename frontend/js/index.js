@@ -1,8 +1,11 @@
-import { Store, generateOptionTag } from './store.js';
+import { Store } from './store.js';
+import { Renderer } from './renders.js';
 import { Account } from './helpers/Account.js';
 
 // this is the store instance.
-const store = new Store();
+// This store is singleton.
+const renderer = new Renderer();
+export const store = new Store(renderer);
 
 $(() => {
   //Start coding here!
