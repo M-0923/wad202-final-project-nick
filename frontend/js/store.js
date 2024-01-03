@@ -4,9 +4,11 @@ import { Account } from './helpers/Account';
  * This class hosts all data.
  * If the data is updated, the appropriate render method is called.
  * @class Store
- * @property {Account[]}
  */
 export class Store {
+  /**
+   * @type {Account[]}
+   */
   #accounts;
 
   constructor() {

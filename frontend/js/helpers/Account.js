@@ -3,6 +3,12 @@ export class Account {
   #username = '';
   #transactions = [];
 
+  /**
+   * constructor
+   * @param {number} id
+   * @param {string} username
+   * @param {number[]} transactions
+   */
   constructor(id, username, transactions = []) {
     this.#id = id;
     this.#username = username;
