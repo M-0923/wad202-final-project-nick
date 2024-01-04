@@ -9,6 +9,14 @@
  * @property {number} categoryId
  * @property {string} description
  */
+
+/**
+ * This class manages transactions.
+ * It is used to calculate the balance of the account.
+ * It is also used to get all transactions of the account.
+ * @property {ITransaction[]}
+ * @class Transactions
+ */
 class Transactions {
   /**
    * @type {ITransaction[]} - Array of Transaction objects.
