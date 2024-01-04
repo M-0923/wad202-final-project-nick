@@ -17,7 +17,7 @@
  * @property {ITransaction[]}
  * @class Transactions
  */
-class Transactions {
+export class Transactions {
   /**
    * @type {ITransaction[]} - Array of Transaction objects.
    */
