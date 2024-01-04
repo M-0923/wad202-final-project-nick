@@ -37,7 +37,7 @@ export class Renderer {
   };
 
   /**
-   * render to the ID, #catgegory
+   * render to the ID, #category
    * @param {Category[]} categories
    */
   categoryRenderer = (categories) => {
@@ -60,4 +60,23 @@ const generateOptionTag = (id, name) => {
   optionTag.value = id.toString();
   optionTag.innerText = name;
   return optionTag;
+};
+
+/**
+ * Generate tr tag for the accounts table.
+ * @param {string} account
+ * @param {number} balance
+ * @returns {HTMLTableRowElement} trTag
+ */
+export const generateAccountTrTag = (account, balance) => {
+  // Grab the template of the tr tag from the DOM and hide it.
+  const template = $('#account-row-template')[0];
+  const trTag = template.cloneNode(true);
+  $(trTag).removeAttr('id');
+
+  // Fill the data in the td tags.
+  $(trTag).find('.td-account').text(account);
+  $(trTag).find('.td-balance').text(balance);
+
+  return trTag;
 };
