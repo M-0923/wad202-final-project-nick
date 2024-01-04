@@ -26,10 +26,31 @@ $(() => {
     usernameInput.val('');
   });
 
+  // create a new category.
   $('#create-new-category').on('submit', function (e) {
     e.preventDefault();
     const categoryInput = $(this).find('input');
     createNewCategory(categoryInput.val());
     categoryInput.val('');
   });
+
+  // transaction type radio button event handler.
+  $('input[type="radio"][name="transaction-type"]').on('change', function (e) {
+    const transactionType = $(this).attr('id');
+    const accountSelect = $('#account-select');
+    const fromSelect = $('#from-select');
+    const toSelect = $('#to-select');
+    if (transactionType === 'transfer') {
+      accountSelect.hide();
+      fromSelect.show();
+      toSelect.show();
+    } else {
+      accountSelect.show();
+      fromSelect.hide();
+      toSelect.hide();
+    }
+  });
+
+  // Check the deposit radio button by default.
+  $('#deposit').attr('checked', true).trigger('change');
 });
