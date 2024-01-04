@@ -4,7 +4,7 @@
  */
 export class Renderer {
   /**
-   * Render the account data.
+   * Render the options for the account selection tags.
    * @param {Account[]} accounts
    */
   accountRenderer = (accounts) => {
@@ -37,7 +37,20 @@ export class Renderer {
   };
 
   /**
-   * render to the ID, #catgegory
+   * Render the table body for the accounts table.
+   * @param {Account[]} accounts
+   */
+  accountsTableRenderer = (accounts) => {
+    const accountsTable = $('#accounts-table').find('tbody');
+
+    // Remove all the tr tags in the tbody tag except the template tr.
+    accountsTable.find('tr:not(#account-row-template)').remove();
+    // TODO: Replace the balance with the calculated balance.
+    accountsTable.append(accounts.map((account) => generateAccountTrTag(account.username, 100)));
+  };
+
+  /**
+   * render to the ID, #category
    * @param {Category[]} categories
    */
   categoryRenderer = (categories) => {
@@ -60,4 +73,24 @@ const generateOptionTag = (id, name) => {
   optionTag.value = id.toString();
   optionTag.innerText = name;
   return optionTag;
+};
+
+/**
+ * Generate tr tag for the accounts table.
+ * @param {string} account
+ * @param {number} balance
+ * @returns {HTMLTableRowElement} trTag
+ */
+export const generateAccountTrTag = (account, balance) => {
+  // Grab the template of the tr tag from the DOM and hide it.
+  const template = $('#account-row-template')[0];
+  const trTag = template.cloneNode(true);
+  $(trTag).removeAttr('id');
+  $(trTag).removeAttr('hidden');
+
+  // Fill the data in the td tags.
+  $(trTag).find('.td-account').text(account);
+  $(trTag).find('.td-balance').text(balance);
+
+  return trTag;
 };

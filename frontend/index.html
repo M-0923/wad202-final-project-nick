@@ -91,7 +91,7 @@
           </div>
           <div class="mt-20">
             <h2>Accounts</h2>
-            <table class="w-full mt-2 border-sky-200">
+            <table id="accounts-table" class="w-full mt-2 border-sky-200">
               <thead>
                 <tr class="thead-row">
                   <th class="px-4">Account</th>
@@ -99,25 +99,9 @@
                 </tr>
               </thead>
               <tbody>
-                <tr class="tbody-row">
-                  <td class="px-4">Nick</td>
-                  <td class="px-4">100</td>
-                </tr>
-                <tr class="tbody-row">
-                  <td class="px-4">Nick</td>
-                  <td class="px-4">100</td>
-                </tr>
-                <tr class="tbody-row">
-                  <td class="px-4">Nick</td>
-                  <td class="px-4">100</td>
-                </tr>
-                <tr class="tbody-row">
-                  <td class="px-4">Nick</td>
-                  <td class="px-4">100</td>
-                </tr>
-                <tr class="tbody-row">
-                  <td class="px-4">Nick</td>
-                  <td class="px-4">100</td>
+                <tr id="account-row-template" class="tbody-row" hidden>
+                  <td class="td-account px-4"></td>
+                  <td class="td-balance px-4"></td>
                 </tr>
               </tbody>
             </table>
