@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: apis/account.js</title>
+    <title>JSDoc: Source: apis/transactions.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: apis/account.js</h1>
+    <h1 class="page-title">Source: apis/transactions.js</h1>
 
     
 
@@ -26,51 +26,72 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import { Account } from '../helpers/Account.js';
-import { store } from '../index.js';
+            <pre class="prettyprint source linenums"><code>import { store } from '../index.js';
 
-/**
- * get accounts from the server.
- * If the request is successful, the data will be rendered in the select tag of the Account section.
- */
-export const fetchAccounts = () => {
-  fetch('http://localhost:3000/accounts', {
+export const fetchTransactions = () => {
+  fetch('http://localhost:3000/transactions', {
     method: 'GET',
-  })
-    .then((res) => {
-      res.json().then((data) => {
-        // update the store with the fetched accounts data.
-        const accounts = data.map(
-          (account) => new Account(account.id, account.username, account.transaction),
-        );
-        store.setAccounts(accounts);
+  }).then((res) => {
+    res
+      .json()
+      .then((data) => {
+        const transactions = [];
+
+        for (const transactionsFromApi of data) {
+          if (transactionsFromApi.length === 0) continue;
+          for (const transaction of transactionsFromApi) {
+            transactions.push(transaction);
+          }
+        }
+
+        store.addTransactions(transactions);
+      })
+      .catch((e) => {
+        console.error(e);
       });
-    })
-    .catch((e) => {
-      console.error(e);
-    });
+  });
 };
 
 /**
- * create a new account.
- * If creating is successful, the data will be rendered in the select tag of the Account section.
- * @param {string} username
+ * @typedef IAddTransactionInput
+ * @param {number | null} accountId
+ * @param {number | null} accountIdFrom
+ * @param {number | null} accountIdTo
+ * @param {'Deposit' | 'Withdrow' | 'Transfer'} type
+ * @param {number} amount
+ * @param {number} categoryId
+ * @param {string} description
  */
-export const createNewAccount = (username) => {
-  if (!(username &amp;&amp; username.length > 0)) {
-    return;
-  }
 
-  fetch('http://localhost:3000/accounts', {
+/**
+ * Add transaction to the account.
+ * @param {IAddTransactionInput} input - IAddTransactionInput object.
+ */
+export const addNewTransaction = (input) => {
+  const { accountId, accountIdFrom, accountIdTo, type, amount, categoryId, description } = input;
+
+  const transactionPayload = {
+    newTransaction: {
+      accountId: accountId ? Number(accountId) : null,
+      accountIdFrom: accountIdFrom ? Number(accountIdFrom) : null,
+      accountIdTo: accountIdTo ? Number(accountIdTo) : null,
+      type,
+      amount,
+      categoryId: Number(categoryId),
+      description,
+    },
+  };
+
+  fetch('http://localhost:3000/transactions', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ newAccount: username }),
+    body: JSON.stringify(transactionPayload),
   })
     .then((res) => {
       res.json().then((data) => {
-        store.addAccount(new Account(data.id, data.username, data.transaction));
+        store.addTransactions(data);
       });
     })
     .catch((e) => {
