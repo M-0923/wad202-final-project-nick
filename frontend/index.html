@@ -19,7 +19,7 @@
       <div class="grid grid-cols-4 gap-4">
         <div class="col-span-2">
           <h2>New Transaction</h2>
-          <form>
+          <form id="add-new-transaction">
             <div class="flex items-center">
               <div class="flex items-center h-10 mt-2">
                 <div class="w-32">Type:</div>
@@ -57,15 +57,15 @@
             </div>
             <div class="flex items-center mt-2">
               <div class="w-32">Amount:</div>
-              <input type="number" class="input" />
+              <input id="amount-input" type="number" class="input" />
             </div>
 
             <div class="flex items-center mt-2">
               <div class="w-32">Description:</div>
-              <input type="text" class="input grow" />
+              <input id="description-input" type="text" class="input grow" />
             </div>
 
-            <button class="px-4 button-primary mt-2">Confirm</button>
+            <button type="submit" class="px-4 button-primary mt-2">Confirm</button>
           </form>
           <div class="mt-20">
             <h2>Create a New Category</h2>
