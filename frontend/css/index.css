@@ -1,3 +1,21 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  h2 {
+    @apply block text-2xl font-bold;
+  }
+  .input {
+    @apply border border-gray-300 rounded h-10 w-48;
+  }
+  .button-primary {
+    @apply bg-sky-600 text-white rounded h-10 px-4;
+  }
+  .thead-row {
+    @apply bg-sky-100 h-10 text-left;
+  }
+  .tbody-row {
+    @apply h-10 border-b border-b-sky-100;
+  }
+}

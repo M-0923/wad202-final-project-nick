@@ -12,59 +12,152 @@
   </head>
 
   <body>
-    myTrakr
-    <main>
-      <form action="" id="create-new-account">
-        New Account:
-        <input type="text" />
-        <button type="submit">Add new account</button>
-      </form>
-      <form action="">
-        New Transaction: Deposit
-        <input type="radio" />
-        Withdraw
-        <input type="radio" />
-        Transfer
-        <input type="radio" />
-        Account:
-        <select id="account"></select>
+    <header class="flex items-center justify-center h-16 bg-gray-100 border border-b-red-50">
+      <h1 class="text-3xl font-semibold">myTrakr</h1>
+    </header>
+    <main class="p-4">
+      <div class="grid grid-cols-4 gap-4">
+        <div class="col-span-2">
+          <h2>New Transaction</h2>
+          <form>
+            <div class="flex items-center">
+              <!-- <div class="font-bold mr-6">New Transaction</div> -->
+              <div class="flex items-center h-10 mt-2">
+                <div class="w-32 text-righ">Type:</div>
+                <div class="font-bold flex items-center gap-4">
+                  <div class="flex items-center gap-2">
+                    <input type="radio" id="deposit" name="transaction-type" />
+                    <label for="deposit">Deposit</label>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <input type="radio" id="withdraw" name="transaction-type" />
+                    <label for="withdraw">Withdraw</label>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <input type="radio" id="transfer" name="transaction-type" />
+                    <label for="transfer">Transfer</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="flex items-center mt-2">
+              <div class="w-32 text-righ">Account:</div>
+              <select id="account" class="input"></select>
+            </div>
+            <div class="flex items-center mt-2">
+              <div class="w-32 text-righ">From:</div>
+              <select id="from" class="input"></select>
+            </div>
+            <div class="flex items-center mt-2">
+              <div class="w-32 text-righ">To:</div>
+              <select id="to" class="input"></select>
+            </div>
 
-        From:
-        <select id="from"></select>
+            <div class="flex items-center mt-2">
+              <div class="w-32 text-righ">Amount:</div>
+              <input type="number" class="input" />
+            </div>
 
-        To:
-        <select id="to"></select>
-        Category:
-        <select id="category"></select>
+            <div class="flex items-center mt-2">
+              <div class="w-32 text-righ">Description:</div>
+              <input type="text" class="input" />
+            </div>
 
-        Description
-        <input type="text" />
+            <button class="px-4 button-primary mt-2">Confirm</button>
+          </form>
+          <div class="mt-20">
+            <h2>Create a New Category</h2>
+            <form id="create-new-category">
+              <div class="mt-2 flex items-center">
+                <div class="w-32">Category Name:</div>
+                <input type="text" id="category" class="input" />
+              </div>
+              <button type="submit" class="button-primary mt-2">Create</button>
+            </form>
+          </div>
+        </div>
+        <div class="col-span-2">
+          <h2>Create a New Account</h2>
+          <div class="flex items-center">
+            <form id="create-new-account">
+              <div class="flex items-center">
+                <div class="w-32">Account Name:</div>
+                <input type="text" class="input" />
+              </div>
+              <button type="submit" class="mt-2 px-4 button-primary">Create</button>
+            </form>
+          </div>
+          <div class="mt-20">
+            <h2>Accounts</h2>
+            <table class="w-full mt-2 border-sky-200">
+              <thead>
+                <tr class="thead-row">
+                  <th class="px-4">Account</th>
+                  <th class="px-4">Balance</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="tbody-row">
+                  <td class="px-4">Nick</td>
+                  <td class="px-4">100</td>
+                </tr>
+                <tr class="tbody-row">
+                  <td class="px-4">Nick</td>
+                  <td class="px-4">100</td>
+                </tr>
+                <tr class="tbody-row">
+                  <td class="px-4">Nick</td>
+                  <td class="px-4">100</td>
+                </tr>
+                <tr class="tbody-row">
+                  <td class="px-4">Nick</td>
+                  <td class="px-4">100</td>
+                </tr>
+                <tr class="tbody-row">
+                  <td class="px-4">Nick</td>
+                  <td class="px-4">100</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
 
-        Amount:
-        <input type="number" />
-
-        <button>Add transaction</button>
-      </form>
-      <form id="create-new-category">
-        <input type="text" />
-        <button type="submit">Add new category</button>
-      </form>
-      Account summary
-      <ul></ul>
-      Filter by account:
-      <select id="account-filter"></select>
-      <table>
-        <tr>
-          <th>Id</th>
-          <th>Username</th>
-          <th>Transaction Type</th>
-          <th>Category</th>
-          <th>Description</th>
-          <th>Amount</th>
-          <th>From</th>
-          <th>To</th>
-        </tr>
-      </table>
+      <div class="mt-20">
+        <div class="flex items-center justify-between">
+          <h2>Transactions</h2>
+          <div class="flex items-center gap-2">
+            <div>Filter by account:</div>
+            <select id="account-filter" class="input"></select>
+          </div>
+        </div>
+        <table class="w-full mt-2">
+          <thead class="thead-row">
+            <tr>
+              <th class="px-4">Id</th>
+              <th class="px-4">Account</th>
+              <th class="px-4">Type</th>
+              <th class="px-4">Category</th>
+              <th class="px-4">Description</th>
+              <th class="px-4">From</th>
+              <th class="px-4">To</th>
+              <th class="px-4">Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="tbody-row">
+              <td class="px-4">xxxxx</td>
+              <td class="px-4">xxxxx</td>
+              <td class="px-4">xxxxx</td>
+              <td class="px-4">xxxxx</td>
+              <td class="px-4">xxxxx</td>
+              <td class="px-4">xxxxx</td>
+              <td class="px-4">xxxxx</td>
+              <td class="px-4">xxxxx</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </main>
     <script src="./js/index.js" type="module"></script>
   </body>
