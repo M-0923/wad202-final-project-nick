@@ -9,8 +9,8 @@ export class Category {
   #name;
 
   /**
-   * @param {number} id
-   * @param {string} name
+   * @param {number} id - category ID.
+   * @param {string} name - category name.
    */
   constructor(id, name) {
     this.#id = id;
