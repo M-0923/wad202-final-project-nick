@@ -4,7 +4,7 @@
  */
 export class Renderer {
   /**
-   * Render the account data.
+   * Render the options for the account selection tags.
    * @param {Account[]} accounts
    */
   accountRenderer = (accounts) => {
@@ -34,6 +34,19 @@ export class Renderer {
     const toSelectTag = $('#to');
     toSelectTag.empty(); // clear the select tag.
     toSelectTag.append(optionTags);
+  };
+
+  /**
+   * Render the table body for the accounts table.
+   * @param {Account[]} accounts
+   */
+  accountsTableRenderer = (accounts) => {
+    const accountsTable = $('#accounts-table').find('tbody');
+
+    // Remove all the tr tags in the tbody tag except the template tr.
+    accountsTable.find('tr:not(#account-row-template)').remove();
+    // TODO: Replace the balance with the calculated balance.
+    accountsTable.append(accounts.map((account) => generateAccountTrTag(account.username, 100)));
   };
 
   /**
@@ -73,6 +86,7 @@ export const generateAccountTrTag = (account, balance) => {
   const template = $('#account-row-template')[0];
   const trTag = template.cloneNode(true);
   $(trTag).removeAttr('id');
+  $(trTag).removeAttr('hidden');
 
   // Fill the data in the td tags.
   $(trTag).find('.td-account').text(account);
