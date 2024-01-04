@@ -48,6 +48,7 @@ export class Store {
   setAccounts(accounts) {
     this.#accounts = accounts;
     this.#renderer.accountRenderer(this.#accounts);
+    this.#renderer.accountsTableRenderer(this.#accounts);
   }
 
   /**
@@ -57,6 +58,7 @@ export class Store {
   addAccount(account) {
     this.#accounts.push(account);
     this.#renderer.accountRenderer(this.#accounts);
+    this.#renderer.accountsTableRenderer(this.#accounts);
   }
 
   /**
