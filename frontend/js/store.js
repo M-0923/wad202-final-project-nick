@@ -40,14 +40,44 @@ export class Store {
   }
 
   /**
-   *
-   * @param {number | Account} accountId
-   * @returns {Account} - Account object.
+   * find an account from this property.
+   * @param {number | Account} accountId - account id or account object.
+   * @returns {Account | undefined} - Account object.
    */
   findAccount(accountId) {
     const id = accountId instanceof Account ? accountId.id : accountId;
 
     return this.#accounts.find((account) => account.id === id);
+  }
+
+  /**
+   * find a category from this property.
+   * @param {number | Category} categoryId - category id or category object.
+   * @returns {Category | undefined} - Category object.
+   */
+  findCategory(categoryId) {
+    const id = categoryId instanceof Category ? categoryId.id : categoryId;
+    return this.#categories.find((category) => category.id === id);
+  }
+
+  /**
+   * find transactions of an account from this property.
+   * @param {number | Account} accountId - account id or account object.
+   * @returns {ITransaction[]} - transactions of the account.
+   */
+  getTransactionsOfAccount(accountId) {
+    const id = accountId instanceof Account ? accountId.id : accountId;
+    return this.#transactions.getTransactionsByAccountId(id);
+  }
+
+  /**
+   * get balance of an account from this property.
+   * @param accountId - account id or account object.
+   * @returns {number} - balance of the account.
+   */
+  getBalance(accountId) {
+    const id = accountId instanceof Account ? accountId.id : accountId;
+    return this.#transactions.getBalance(id);
   }
 
   /**

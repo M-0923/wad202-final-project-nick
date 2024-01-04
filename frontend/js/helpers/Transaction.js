@@ -10,6 +10,8 @@
  * @property {string} description
  */
 
+import Accounts from '../../../src/accounts.js';
+
 /**
  * This class manages transactions.
  * It is used to calculate the balance of the account.
@@ -40,11 +42,11 @@ export class Transactions {
 
   /**
    * get a balance of the account.
-   * @param {Account} account - Account object.
+   * @param {Account | number} account - Account object or account id.
    * @return {number} - Balance of the account.
    */
   getBalance(account) {
-    const accountId = account.id;
+    const accountId = account instanceof Accounts ? account.id : account;
     const relatedTransaction = this.#transactions.filter(
       (transaction) => transaction.accountId === accountId,
     ); // filter transaction by the account
@@ -75,10 +77,11 @@ export class Transactions {
 
   /**
    * get all transactions of the account.
-   * @param {Account} account - Account instance.
+   * @param {Account | number} account - Account instance or id.
    * @return {ITransaction[]} - Array of Transaction objects.
    */
   getTransactionsByAccountId(account) {
+    const accountId = account instanceof Accounts ? account.id : account;
     return this.#transactions.filter((transaction) => transaction.accountId === account.id);
   }
 }
