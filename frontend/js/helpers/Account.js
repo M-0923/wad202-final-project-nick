@@ -7,21 +7,15 @@ export class Account {
    * @type {string}
    */
   #username;
-  /**
-   * @type {number[]}
-   */
-  #transactions;
 
   /**
    * constructor
-   * @param {number} id
-   * @param {string} username
-   * @param {number[]} transactions
+   * @param {number} id - account id
+   * @param {string} username - account username
    */
-  constructor(id, username, transactions = []) {
+  constructor(id, username) {
     this.#id = id;
     this.#username = username;
-    this.#transactions = transactions;
   }
 
   get id() {
@@ -30,11 +24,5 @@ export class Account {
 
   get username() {
     return this.#username;
-  }
-
-  get balance() {
-    return this.#transactions.reduce((total, transaction) => {
-      return total + transaction;
-    }, 0);
   }
 }
