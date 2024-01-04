@@ -40,6 +40,17 @@ export class Store {
   }
 
   /**
+   *
+   * @param {number | Account} accountId
+   * @returns {Account} - Account object.
+   */
+  findAccount(accountId) {
+    const id = accountId instanceof Account ? accountId.id : accountId;
+
+    return this.#accounts.find((account) => account.id === id);
+  }
+
+  /**
    * Set account data.
    * This method is called when the data is fetched from the server.
    * The data is overwritten with the new data.
