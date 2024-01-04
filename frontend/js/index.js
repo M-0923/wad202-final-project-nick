@@ -2,7 +2,7 @@ import { Store } from './store.js';
 import { Renderer } from './renders.js';
 import { fetchAccounts, createNewAccount } from './apis/account.js';
 import { fetchCategories, createNewCategory } from './apis/category.js';
-import { fetchTransactions } from './apis/transactions.js';
+import { addNewTransaction, fetchTransactions } from './apis/transactions.js';
 
 // this is the store instance.
 // This store is singleton.
@@ -32,6 +32,50 @@ $(() => {
     const categoryInput = $(this).find('input');
     createNewCategory(categoryInput.val());
     categoryInput.val('');
+  });
+
+  $('#add-new-transaction').on('submit', function (e) {
+    e.preventDefault();
+
+    const selectedRadio = $(this).find('input[type="radio"]:checked').attr('id');
+    const type = `${selectedRadio.charAt(0).toUpperCase()}${selectedRadio.slice(1)}`;
+
+    const account = $('#account-select option:selected').val();
+
+    const from = $('#from-select option:selected').val();
+    const to = $('#to-select option:selected').val();
+
+    const category = $(this).find('#category option:selected').val();
+
+    const amountElement = $('#amount-input');
+
+    const descriptionElement = $('#description-input');
+
+    // must be selected
+    if (!amountElement.val()) {
+      return;
+    }
+
+    // cannot transfer between same account.
+    if (type === 'Transfer' && from === to) {
+      return;
+    }
+
+    addNewTransaction({
+      accountId: account,
+      accountIdFrom: type === 'Transfer' ? from : null, // when type not transfer, accountIdFrom is null.
+      accountIdTo: type === 'Transfer' ? to : null, // when type not transfer, accountIdTo is null.
+      type,
+      amount: amountElement.val(),
+      categoryId: category,
+      description: descriptionElement.val(),
+    });
+
+    /// initialize input
+    $('#to-select select').val(0); // account ID TO
+
+    descriptionElement.val('');
+    amountElement.val('');
   });
 
   // transaction type radio button event handler.
