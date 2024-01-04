@@ -37,6 +37,18 @@ export class Renderer {
   };
 
   /**
+   * render to the ID, #category
+   * @param {Category[]} categories
+   */
+  categoryRenderer = (categories) => {
+    const categoryList = $('#category');
+    categoryList.empty();
+    categoryList.append(
+      categories.map((category) => generateOptionTag(category.id, category.name)),
+    );
+  };
+
+  /**
    * Render the table body for the accounts table.
    * @param {Account[]} accounts
    */
@@ -47,18 +59,6 @@ export class Renderer {
     accountsTable.find('tr:not(#account-row-template)').remove();
     // TODO: Replace the balance with the calculated balance.
     accountsTable.append(accounts.map((account) => generateAccountTrTag(account.username, 100)));
-  };
-
-  /**
-   * render to the ID, #category
-   * @param {Category[]} categories
-   */
-  categoryRenderer = (categories) => {
-    const categoryList = $('#category');
-    categoryList.empty();
-    categoryList.append(
-      categories.map((category) => generateOptionTag(category.id, category.name)),
-    );
   };
 }
 
