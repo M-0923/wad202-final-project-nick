@@ -94,3 +94,44 @@ export const generateAccountTrTag = (account, balance) => {
 
   return trTag;
 };
+
+/**
+ * Generate tr tag for the transactions table.
+ * @param {number} id
+ * @param {string} username
+ * @param {string} type
+ * @param {string} category
+ * @param {string} description
+ * @param {string} from
+ * @param {string} to
+ * @param {number} amount
+ * @returns {HTMLTableRowElement} trTag
+ */
+export const generateTransactionTrTag = (
+  id,
+  username,
+  type,
+  category,
+  description,
+  from,
+  to,
+  amount,
+) => {
+  // Grab the template of the tr tag from the DOM and hide it.
+  const template = $('#transaction-row-template')[0];
+  const trTag = template.cloneNode(true);
+  $(trTag).removeAttr('id');
+  $(trTag).removeAttr('hidden');
+
+  // Fill the data in the td tags.
+  $(trTag).find('.td-id').text(id);
+  $(trTag).find('.td-account').text(username);
+  $(trTag).find('.td-type').text(type);
+  $(trTag).find('.td-category').text(category);
+  $(trTag).find('.td-description').text(description);
+  $(trTag).find('.td-from').text(from);
+  $(trTag).find('.td-to').text(to);
+  $(trTag).find('.td-amount').text(amount);
+
+  return trTag;
+};
