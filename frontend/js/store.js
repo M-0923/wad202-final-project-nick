@@ -40,6 +40,27 @@ export class Store {
   }
 
   /**
+   * @return {Account[]}
+   */
+  get accounts() {
+    return this.#accounts;
+  }
+
+  /**
+   * @return {Category[]}
+   */
+  get categories() {
+    return this.#categories;
+  }
+
+  /**
+   * @return {Transactions}
+   */
+  get transactions() {
+    return this.#transactions;
+  }
+
+  /**
    * find an account from this property.
    * @param {number | Account} accountId - account id or account object.
    * @returns {Account | undefined} - Account object.
