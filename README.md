@@ -44,6 +44,15 @@ frontend
     --- index.html (HTML stuff) - no introductions needed
 ```
 
+## API Document
+
+This project generates API documents using [JSDoc](https://jsdoc.app/).
+The target of this documentation is under the `/frontend/js`.
+
+The document link is following:
+
+https://m-0923.github.io/wad202-final-project-nick/js-doc/index.html
+
 ## How to split the project (in case of team mates)
 
 > This is just a recommendation!
