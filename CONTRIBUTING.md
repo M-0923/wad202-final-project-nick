@@ -68,7 +68,7 @@ If you are interested in the detailed specification you can visit:
 
 ### For Team Members:
 
-1. Create a new branch from the `man` branch.
+1. Create a new branch from the `main` branch.
 2. Follow the [Branch Naming Conventions](#branch-naming-conventions) while naming your branch.
 3. Work on your changes locally.
 4. Commit your changes, ensuring to follow the project's [commit message conventions](#commit-convention).
