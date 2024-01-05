@@ -1,6 +1,5 @@
 /**
  * Render the data.
- *
  */
 export class Renderer {
   /**
@@ -50,15 +49,20 @@ export class Renderer {
 
   /**
    * Render the table body for the accounts table.
-   * @param {Account[]} accounts
+   * @param {Store} store
    */
-  accountsTableRenderer = (accounts) => {
+  accountsTableRenderer = (store) => {
+    const accounts = store.accounts;
     const accountsTable = $('#accounts-table').find('tbody');
 
     // Remove all the tr tags in the tbody tag except the template tr.
     accountsTable.find('tr:not(#account-row-template)').remove();
     // TODO: Replace the balance with the calculated balance.
-    accountsTable.append(accounts.map((account) => generateAccountTrTag(account.username, 100)));
+    accountsTable.append(
+      accounts.map((account) =>
+        generateAccountTrTag(account.username, store.getBalance(account.id)),
+      ),
+    );
   };
 }
 
