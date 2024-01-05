@@ -19,16 +19,16 @@ Thank you for your interest in contributing to Nick Project! This document outli
 
 ### Types of Branches
 
-- `main`: For production use. Only accepts PRs from `develop` (and `hotfix` in emergencies).
+- `main`: For production use.
 - `feature/`: Branches for developing new features or improvements.
 - `hotfix/`: Branches for urgent fixes.
 - `docs/`: Branches for documentation updates.
 
 ### Branch Naming Conventions
 
-- Feature Addition: `feature/<issue_number>-<brief_description>` (develop ⇔ feature)
-- Hotfix: `hotfix/<issue_number>-<brief_description>` (main ⇔ hotfix)
-- Documentation Update: `docs/<issue_number>-<brief_description>` (develop ⇔ docs)
+- Feature Addition: `feature/<issue_number>-<brief_description>`
+- Hotfix: `hotfix/<issue_number>-<brief_description>`
+- Documentation Update: `docs/<issue_number>-<brief_description>`
 
 _Note: `<issue_number>-` can be omitted if the modification is not based on an issue._
 
@@ -68,7 +68,7 @@ If you are interested in the detailed specification you can visit:
 
 ### For Team Members:
 
-1. Create a new branch from the `develop` branch, or from the `main` branch if you're working on a hotfix.
+1. Create a new branch from the `main` branch.
 2. Follow the [Branch Naming Conventions](#branch-naming-conventions) while naming your branch.
 3. Work on your changes locally.
 4. Commit your changes, ensuring to follow the project's [commit message conventions](#commit-convention).
@@ -80,10 +80,10 @@ If you are interested in the detailed specification you can visit:
 
 1. Fork the repository to your own GitHub account.
 2. Clone your forked repository locally.
-3. Create a new branch from the `develop` branch on your fork.
+3. Create a new branch from the `main` branch on your fork.
 4. Follow the [Branch Naming Conventions](#branch-naming-conventions) while naming your branch.
 5. Work on your changes locally.
 6. Commit your changes, ensuring to follow the project's [commit message conventions](#commit-convention).
 7. Push your branch to your forked repository.
-8. Create a Pull Request against the `develop` branch of the original repository.
+8. Create a Pull Request against the `main` branch of the original repository.
 9. Await code review, and address any comments as necessary.
