@@ -58,20 +58,21 @@ export class Transactions {
     let accountsAmount = 0;
 
     for (const transaction of relatedTransaction) {
+      const amount = Number(transaction.amount);
       if (transaction.type === 'Deposit') {
-        accountsAmount += transaction.amount;
+        accountsAmount += amount;
         continue;
       }
 
       if (transaction.type === 'Withdraw') {
-        accountsAmount -= transaction.amount;
+        accountsAmount -= amount;
         continue;
       }
 
       // the following code is for transfer transaction.
       transaction.accountIdFrom === accountId
-        ? (accountsAmount -= transaction.amount)
-        : (accountsAmount += transaction.amount);
+        ? (accountsAmount -= amount)
+        : (accountsAmount += amount);
     }
 
     return accountsAmount;
