@@ -1,3 +1,5 @@
+import { Account } from './Account';
+
 /**
  * @typedef ITransaction
  * @property {number} id
@@ -46,7 +48,7 @@ export class Transactions {
    * @return {number} - Balance of the account.
    */
   getBalance(account) {
-    const accountId = account instanceof Accounts ? account.id : account;
+    const accountId = account instanceof Account ? account.id : account;
     const relatedTransaction = this.#transactions.filter(
       (transaction) => transaction.accountId === accountId,
     ); // filter transaction by the account
@@ -56,20 +58,21 @@ export class Transactions {
     let accountsAmount = 0;
 
     for (const transaction of relatedTransaction) {
+      const amount = Number(transaction.amount);
       if (transaction.type === 'Deposit') {
-        accountsAmount += transaction.amount;
+        accountsAmount += amount;
         continue;
       }
 
       if (transaction.type === 'Withdraw') {
-        accountsAmount -= transaction.amount;
+        accountsAmount -= amount;
         continue;
       }
 
       // the following code is for transfer transaction.
       transaction.accountIdFrom === accountId
-        ? (accountsAmount -= transaction.amount)
-        : (accountsAmount += transaction.amount);
+        ? (accountsAmount -= amount)
+        : (accountsAmount += amount);
     }
 
     return accountsAmount;
@@ -81,7 +84,7 @@ export class Transactions {
    * @return {ITransaction[]} - Array of Transaction objects.
    */
   getTransactionsByAccountId(account) {
-    const accountId = account instanceof Accounts ? account.id : account;
+    const accountId = account instanceof Account ? account.id : account;
     return this.#transactions.filter((transaction) => transaction.accountId === account.id);
   }
 }

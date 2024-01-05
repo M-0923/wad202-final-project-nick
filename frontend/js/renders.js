@@ -1,6 +1,5 @@
 /**
  * Render the data.
- *
  */
 export class Renderer {
   /**
@@ -37,19 +36,6 @@ export class Renderer {
   };
 
   /**
-   * Render the table body for the accounts table.
-   * @param {Account[]} accounts
-   */
-  accountsTableRenderer = (accounts) => {
-    const accountsTable = $('#accounts-table').find('tbody');
-
-    // Remove all the tr tags in the tbody tag except the template tr.
-    accountsTable.find('tr:not(#account-row-template)').remove();
-    // TODO: Replace the balance with the calculated balance.
-    accountsTable.append(accounts.map((account) => generateAccountTrTag(account.username, 100)));
-  };
-
-  /**
    * render to the ID, #category
    * @param {Category[]} categories
    */
@@ -58,6 +44,52 @@ export class Renderer {
     categoryList.empty();
     categoryList.append(
       categories.map((category) => generateOptionTag(category.id, category.name)),
+    );
+  };
+
+  /**
+   * Render the table body for the accounts table.
+   * @param {Store} store
+   */
+  accountsTableRenderer = (store) => {
+    const accounts = store.accounts;
+    const accountsTable = $('#accounts-table').find('tbody');
+
+    // Remove all the tr tags in the tbody tag except the template tr.
+    accountsTable.find('tr:not(#account-row-template)').remove();
+    // Append the tr tags to the tbody tag.
+    accountsTable.append(
+      accounts.map((account) =>
+        generateAccountTrTag(account.username, store.getBalance(account.id)),
+      ),
+    );
+  };
+
+  /**
+   * Render the table body for the transactions table.
+   * @param {Store} store
+   */
+  transactionsTableRenderer = (store) => {
+    const transactions = store.transactions.transactions;
+    const transactionsTable = $('#transactions-table').find('tbody');
+
+    // Remove all the tr tags in the tbody tag except the template tr.
+    transactionsTable.find('tr:not(#transaction-row-template)').remove();
+
+    // Append the tr tags to the tbody tag.
+    transactionsTable.append(
+      transactions.map((transaction) => {
+        const id = transaction.id;
+        const account = store.findAccount(transaction.accountId).username;
+        const type = transaction.type;
+        const category = store.findCategory(transaction.categoryId).name;
+        const description = transaction.description;
+        const from = store.findAccount(transaction.accountIdFrom)?.username;
+        const to = store.findAccount(transaction.accountIdTo)?.username;
+        const amount =
+          ((account === from) | (type === 'Withdraw') ? '-' : '') + String(transaction.amount);
+        return generateTransactionTrTag(id, account, type, category, description, from, to, amount);
+      }),
     );
   };
 }
@@ -91,6 +123,47 @@ export const generateAccountTrTag = (account, balance) => {
   // Fill the data in the td tags.
   $(trTag).find('.td-account').text(account);
   $(trTag).find('.td-balance').text(balance);
+
+  return trTag;
+};
+
+/**
+ * Generate tr tag for the transactions table.
+ * @param {number} id
+ * @param {string} username
+ * @param {'Deposit' | 'Withdraw' | 'Transfer'} type
+ * @param {string} category
+ * @param {string} description
+ * @param {string} from
+ * @param {string} to
+ * @param {number} amount
+ * @returns {HTMLTableRowElement} trTag
+ */
+export const generateTransactionTrTag = (
+  id,
+  username,
+  type,
+  category,
+  description,
+  from,
+  to,
+  amount,
+) => {
+  // Grab the template of the tr tag from the DOM and hide it.
+  const template = $('#transaction-row-template')[0];
+  const trTag = template.cloneNode(true);
+  $(trTag).removeAttr('id');
+  $(trTag).removeAttr('hidden');
+
+  // Fill the data in the td tags.
+  $(trTag).find('.td-id').text(id);
+  $(trTag).find('.td-account').text(username);
+  $(trTag).find('.td-type').text(type);
+  $(trTag).find('.td-category').text(category);
+  $(trTag).find('.td-description').text(description);
+  $(trTag).find('.td-from').text(from);
+  $(trTag).find('.td-to').text(to);
+  $(trTag).find('.td-amount').text(amount);
 
   return trTag;
 };
