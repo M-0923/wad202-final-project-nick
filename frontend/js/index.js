@@ -98,7 +98,8 @@ $(() => {
   // Check the deposit radio button by default.
   $('#deposit').attr('checked', true).trigger('change');
 
+  // Filter the transactions table by account.
   $('#account-filter').on('change', function (e) {
-    renderer.transactionsTableRenderer(store);
+    renderer.transactionsTableRenderer(store, Number($(this).val()));
   });
 });

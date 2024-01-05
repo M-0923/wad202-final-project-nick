@@ -68,8 +68,10 @@ export class Renderer {
   /**
    * Render the table body for the transactions table.
    * @param {Store} store
+   * @param {number} accountId
    */
-  transactionsTableRenderer = (store) => {
+  transactionsTableRenderer = (store, accountId) => {
+    if (store.transactions.transactions.length === 0) return;
     const transactions = store.transactions.transactions;
     const transactionsTable = $('#transactions-table').find('tbody');
 
@@ -79,6 +81,10 @@ export class Renderer {
     // Append the tr tags to the tbody tag.
     transactionsTable.append(
       transactions.map((transaction) => {
+        // Skip the transaction if the account is not the filter target.
+        if (accountId && transaction.accountId !== accountId) return;
+
+        // Define the variables for the td tags.
         const id = transaction.id;
         const account = store.findAccount(transaction.accountId).username;
         const type = transaction.type;
@@ -88,6 +94,8 @@ export class Renderer {
         const to = store.findAccount(transaction.accountIdTo)?.username;
         const amount =
           ((account === from) | (type === 'Withdraw') ? '-' : '') + String(transaction.amount);
+
+        // Generate the tr tag.
         return generateTransactionTrTag(id, account, type, category, description, from, to, amount);
       }),
     );
