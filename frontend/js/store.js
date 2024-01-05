@@ -110,7 +110,7 @@ export class Store {
   setAccounts(accounts) {
     this.#accounts = accounts;
     this.#renderer.accountRenderer(this.#accounts);
-    this.#renderer.accountsTableRenderer(this.#accounts);
+    this.#renderer.accountsTableRenderer(this);
   }
 
   /**
@@ -120,7 +120,7 @@ export class Store {
   addAccount(account) {
     this.#accounts.push(account);
     this.#renderer.accountRenderer(this.#accounts);
-    this.#renderer.accountsTableRenderer(this.#accounts);
+    this.#renderer.accountsTableRenderer(this);
   }
 
   /**
@@ -146,9 +146,11 @@ export class Store {
    * @param {ITransaction[]} transactions
    */
   initTransactions(transactions) {
+    this.#transactions = new Transactions();
     for (const transaction of transactions) {
       this.#transactions.addTransaction(transaction);
     }
+    this.#renderer.transactionsTableRenderer(this);
   }
 
   /**
@@ -159,5 +161,7 @@ export class Store {
     for (const transaction of transactions) {
       this.#transactions.addTransaction(transaction);
     }
+    this.#renderer.transactionsTableRenderer(this);
+    this.#renderer.accountsTableRenderer(this);
   }
 }
