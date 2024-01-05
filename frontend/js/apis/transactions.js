@@ -16,7 +16,7 @@ export const fetchTransactions = () => {
           }
         }
 
-        store.addTransactions(transactions);
+        store.initTransactions(transactions);
       })
       .catch((e) => {
         console.error(e);

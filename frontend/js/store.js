@@ -146,9 +146,11 @@ export class Store {
    * @param {ITransaction[]} transactions
    */
   initTransactions(transactions) {
+    this.#transactions = new Transactions();
     for (const transaction of transactions) {
       this.#transactions.addTransaction(transaction);
     }
+    this.#renderer.transactionsTableRenderer(this);
   }
 
   /**
@@ -159,5 +161,7 @@ export class Store {
     for (const transaction of transactions) {
       this.#transactions.addTransaction(transaction);
     }
+    this.#renderer.transactionsTableRenderer(this);
+    this.#renderer.accountsTableRenderer(this);
   }
 }
