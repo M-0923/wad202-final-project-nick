@@ -57,11 +57,39 @@ export class Renderer {
 
     // Remove all the tr tags in the tbody tag except the template tr.
     accountsTable.find('tr:not(#account-row-template)').remove();
-    // TODO: Replace the balance with the calculated balance.
+    // Append the tr tags to the tbody tag.
     accountsTable.append(
       accounts.map((account) =>
         generateAccountTrTag(account.username, store.getBalance(account.id)),
       ),
+    );
+  };
+
+  /**
+   * Render the table body for the transactions table.
+   * @param {Store} store
+   */
+  transactionsTableRenderer = (store) => {
+    const transactions = store.transactions.transactions;
+    const transactionsTable = $('#transactions-table').find('tbody');
+
+    // Remove all the tr tags in the tbody tag except the template tr.
+    transactionsTable.find('tr:not(#transaction-row-template)').remove();
+
+    // Append the tr tags to the tbody tag.
+    transactionsTable.append(
+      transactions.map((transaction) => {
+        const id = transaction.id;
+        const account = store.findAccount(transaction.accountId).username;
+        const type = transaction.type;
+        const category = store.findCategory(transaction.categoryId).name;
+        const description = transaction.description;
+        const from = store.findAccount(transaction.accountIdFrom)?.username;
+        const to = store.findAccount(transaction.accountIdTo)?.username;
+        const amount =
+          ((account === from) | (type === 'Withdraw') ? '-' : '') + String(transaction.amount);
+        return generateTransactionTrTag(id, account, type, category, description, from, to, amount);
+      }),
     );
   };
 }
@@ -103,7 +131,7 @@ export const generateAccountTrTag = (account, balance) => {
  * Generate tr tag for the transactions table.
  * @param {number} id
  * @param {string} username
- * @param {string} type
+ * @param {'Deposit' | 'Withdraw' | 'Transfer'} type
  * @param {string} category
  * @param {string} description
  * @param {string} from
