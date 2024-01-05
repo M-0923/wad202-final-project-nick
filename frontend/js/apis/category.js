@@ -21,10 +21,8 @@ export const fetchCategories = () => {
  * @param {string} name
  */
 export const createNewCategory = (name) => {
-  if (name) {
-    if (!(name && name.length > 0)) {
-      return;
-    }
+  if (!(name && name.length > 0)) {
+    return;
   }
 
   fetch('http://localhost:3000/categories', {
